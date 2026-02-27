@@ -6,8 +6,8 @@
     android:versionName="5.01.016" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="24"
+        android:targetSdkVersion="35" />
 
     <supports-screens
         android:largeScreens="true"
