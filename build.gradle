@@ -6,6 +6,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath 'com.google.gms:google-services:4.4.0'
     }
 }
 
@@ -16,22 +17,15 @@ description = 'migme android client'
 repositories {
     google()
     mavenCentral()
-    maven {
-        url 'https://tools.projectgoth.com/nexus/content/groups/public/'
-        credentials {
-            username System.getenv("NEXUS_USERNAME")
-            password System.getenv("NEXUS_PASSWORD")
-        }
-    }
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.projectgoth:common-lib:0.0.5'
-    implementation 'com.projectgoth.localization:localization-lib:0.0.4'
+    implementation project(':common-lib')
+    implementation project(':localization-lib')
     //Caution: checking the project exist or not is for jenkins
     //         for development, recommend to sync the 4 dependencies below to local
-    //         sync paritially will have MultipleDex exception at build time
+    //         sync partially will have MultipleDex exception at build time
     if (file('../client-miniblog/build.gradle').exists()) {
         println "use local client-miniblog"
         implementation project(':client-miniblog')
@@ -60,17 +54,15 @@ dependencies {
         println "use pre-build mig33JavaClientFramework lib 0.0.37"
         implementation 'com.projectgoth.diggle:diggle:0.0.37-SNAPSHOT'
     }
-    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    // Image loading: replaced deprecated UniversalImageLoader with Glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.annotation:annotation:1.7.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':facebookSDK')
-    implementation 'com.fiksu.asotracking:fiksu:4.1.1'
-    implementation 'com.google.android.gms:play-services-analytics:21.5.0'
-    implementation 'com.samsung.spen:libspen:2.2.5'
-    implementation 'com.samsung.spen:libspen_multiwindow:2.2.5'
-    implementation 'com.nineoldandroids:library:2.4.0'
-    implementation 'com.deezer.sdk:deezer:0.10.16'
+    implementation 'com.google.firebase:firebase-analytics:21.5.0'
 
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.1'
     testImplementation 'org.robolectric:robolectric:3.0'
@@ -82,16 +74,22 @@ project.ext.set("vasId", getVasId())
 
 android {
     namespace 'com.projectgoth'
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdk 35
+    buildToolsVersion '35.0.0'
 
     defaultConfig {
         applicationId 'com.projectgoth'
-        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        minSdk 24
+        targetSdk 35
         versionCode 65
         versionName "5.01.016"
         archivesBaseName = "migmeDroid"
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     signingConfigs {
@@ -100,10 +98,18 @@ android {
             keyAlias "androiddebugkey"
         }
         release {
-            storeFile file("appsigning/keystore_2010_android.jks")
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias "mig33_oct2010"
-            keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            def keystorePath = System.getenv("RELEASE_KEYSTORE_PATH")
+            if (keystorePath) {
+                storeFile file(keystorePath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            } else {
+                storeFile file("appsigning/keystore_2010_android.jks")
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias "mig33_oct2010"
+                keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            }
         }
     }
 
@@ -130,6 +136,9 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
     }

@@ -23,11 +23,26 @@ project.properties
 # Mac
 .DS_Store
 
+# Windows
+Thumbs.db
+
 # Maven
 target/
 
 # Crashlytics
 crashlytics.properties
 
-#Gradle
+# Gradle
 .gradle
+
+# Android build outputs
+*.apk
+*.aab
+*.dex
+
+# Signing keys
+*.jks
+*.keystore
+
+# Firebase config (add via CI secrets or local setup, do not commit)
+google-services.json
