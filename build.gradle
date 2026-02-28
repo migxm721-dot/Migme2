@@ -16,19 +16,24 @@ description = 'migme android client'
 repositories {
     google()
     mavenCentral()
-    maven {
-        url 'https://tools.projectgoth.com/nexus/content/groups/public/'
-        credentials {
-            username System.getenv("NEXUS_USERNAME")
-            password System.getenv("NEXUS_PASSWORD")
-        }
-    }
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.projectgoth:common-lib:0.0.5'
-    implementation 'com.projectgoth.localization:localization-lib:0.0.4'
+    if (file('../common-lib/build.gradle').exists()) {
+        println "use local common-lib"
+        implementation project(':common-lib')
+    } else {
+        println "use pre-build common-lib 0.0.5"
+        implementation 'com.projectgoth:common-lib:0.0.5'
+    }
+    if (file('../localization-lib/build.gradle').exists()) {
+        println "use local localization-lib"
+        implementation project(':localization-lib')
+    } else {
+        println "use pre-build localization-lib 0.0.4"
+        implementation 'com.projectgoth.localization:localization-lib:0.0.4'
+    }
     //Caution: checking the project exist or not is for jenkins
     //         for development, recommend to sync the 4 dependencies below to local
     //         sync paritially will have MultipleDex exception at build time
@@ -60,16 +65,16 @@ dependencies {
         println "use pre-build mig33JavaClientFramework lib 0.0.37"
         implementation 'com.projectgoth.diggle:diggle:0.0.37-SNAPSHOT'
     }
-    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.annotation:annotation:1.7.1'
-    implementation project(':facebookSDK')
+    implementation 'com.facebook.android:facebook-android-sdk:16.+'
     implementation 'com.fiksu.asotracking:fiksu:4.1.1'
-    implementation 'com.google.android.gms:play-services-analytics:21.5.0'
+    implementation 'com.google.firebase:firebase-analytics:21.5.0'
     implementation 'com.samsung.spen:libspen:2.2.5'
     implementation 'com.samsung.spen:libspen_multiwindow:2.2.5'
-    implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.deezer.sdk:deezer:0.10.16'
 
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.1'

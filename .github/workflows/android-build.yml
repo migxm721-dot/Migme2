@@ -1,0 +1,147 @@
+name: Android Build
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Migme2
+        uses: actions/checkout@v4
+        with:
+          path: Migme2
+
+      - name: Checkout mig33JavaClientFramework
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/mig33JavaClientFramework
+          path: mig33JavaClientFramework
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Checkout mig33FusionClientService
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/mig33FusionClientService
+          path: mig33FusionClientService
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Checkout client-miniblog
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/client-miniblog
+          path: client-miniblog
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Checkout mig33ClientNetworkService
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/mig33ClientNetworkService
+          path: mig33ClientNetworkService
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Checkout common-lib
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/common-lib
+          path: common-lib
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Checkout localization-lib
+        uses: actions/checkout@v4
+        with:
+          repository: migxm721-dot/localization-lib
+          path: localization-lib
+          token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('Migme2/**/*.gradle', 'Migme2/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Verify library checkouts
+        run: |
+          echo "Checking library repositories..."
+          for lib in mig33JavaClientFramework mig33FusionClientService client-miniblog mig33ClientNetworkService common-lib localization-lib; do
+            if [ -f "${lib}/build.gradle" ]; then
+              echo "✓ ${lib} found (local build)"
+            else
+              echo "⚠ ${lib} not found (will use pre-built artifact if available)"
+            fi
+          done
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x Migme2/gradlew
+
+      - name: Build Debug APK
+        working-directory: Migme2
+        run: ./gradlew assembleFullDebug --stacktrace
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: Migme2/build/outputs/apk/full/debug/*.apk
+          retention-days: 14
+
+      - name: Build Release APK
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        working-directory: Migme2
+        run: ./gradlew assembleFullRelease --stacktrace
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+
+      - name: Upload Release APK
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: Migme2/build/outputs/apk/full/release/*.apk
+          retention-days: 30
+
+      - name: Run Tests
+        working-directory: Migme2
+        run: ./gradlew testFullDebugUnitTest --stacktrace
+        continue-on-error: true
+
+      - name: Build Summary
+        if: always()
+        run: |
+          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | ${{ github.sha }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Triggered by | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY

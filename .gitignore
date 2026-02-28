@@ -31,3 +31,11 @@ crashlytics.properties
 
 #Gradle
 .gradle
+
+# Android signing secrets
+appsigning/keystore_2010_android.jks
+appsigning/May2009_cert
+fabric.properties
+
+# google-services.json (add your own for Firebase)
+google-services.json
