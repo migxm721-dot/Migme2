@@ -1,21 +1,32 @@
 include ':'
 
-include ':mig33JavaClientFramework'
-project(':mig33JavaClientFramework').projectDir = new File('../mig33JavaClientFramework/')
+// Only include local library projects if they exist on disk
+if (new File(rootDir, '../mig33JavaClientFramework/build.gradle').exists()) {
+    include ':mig33JavaClientFramework'
+    project(':mig33JavaClientFramework').projectDir = new File(rootDir, '../mig33JavaClientFramework/')
+}
 
-include ':mig33FusionClientService'
-project(':mig33FusionClientService').projectDir = new File('../mig33FusionClientService/')
+if (new File(rootDir, '../mig33FusionClientService/build.gradle').exists()) {
+    include ':mig33FusionClientService'
+    project(':mig33FusionClientService').projectDir = new File(rootDir, '../mig33FusionClientService/')
+}
 
-include ':client-miniblog'
-project(':client-miniblog').projectDir = new File('../client-miniblog/')
+if (new File(rootDir, '../client-miniblog/build.gradle').exists()) {
+    include ':client-miniblog'
+    project(':client-miniblog').projectDir = new File(rootDir, '../client-miniblog/')
+}
 
-include ':mig33ClientNetworkService'
-project(':mig33ClientNetworkService').projectDir = new File('../mig33ClientNetworkService/')
+if (new File(rootDir, '../mig33ClientNetworkService/build.gradle').exists()) {
+    include ':mig33ClientNetworkService'
+    project(':mig33ClientNetworkService').projectDir = new File(rootDir, '../mig33ClientNetworkService/')
+}
 
-include ':common-lib'
-project(':common-lib').projectDir = new File('../common-lib/')
+if (new File(rootDir, '../common-lib/build.gradle').exists()) {
+    include ':common-lib'
+    project(':common-lib').projectDir = new File(rootDir, '../common-lib/')
+}
 
-include ':localization-lib'
-project(':localization-lib').projectDir = new File('../localization-lib/')
-
-include ':facebookSDK'
+if (new File(rootDir, '../localization-lib/build.gradle').exists()) {
+    include ':localization-lib'
+    project(':localization-lib').projectDir = new File(rootDir, '../localization-lib/')
+}

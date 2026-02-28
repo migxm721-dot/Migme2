@@ -70,7 +70,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.annotation:annotation:1.7.1'
-    implementation project(':facebookSDK')
+    implementation 'com.facebook.android:facebook-android-sdk:16.+'
     implementation 'com.fiksu.asotracking:fiksu:4.1.1'
     implementation 'com.google.firebase:firebase-analytics:21.5.0'
     implementation 'com.samsung.spen:libspen:2.2.5'
