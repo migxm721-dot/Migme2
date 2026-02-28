@@ -1,5 +1,7 @@
 include ':'
 
+include ':facebookSDK'
+
 // Only include local library projects if they exist on disk
 if (new File(rootDir, '../mig33JavaClientFramework/build.gradle').exists()) {
     include ':mig33JavaClientFramework'
