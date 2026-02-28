@@ -6,10 +6,12 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath 'com.google.gms:google-services:4.4.0'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 description = 'migme android client'
 
@@ -70,12 +72,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.annotation:annotation:1.7.1'
-    implementation 'com.facebook.android:facebook-android-sdk:16.+'
-    implementation 'com.fiksu.asotracking:fiksu:4.1.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation project(':facebookSDK')
     implementation 'com.google.firebase:firebase-analytics:21.5.0'
-    implementation 'com.samsung.spen:libspen:2.2.5'
-    implementation 'com.samsung.spen:libspen_multiwindow:2.2.5'
-    implementation 'com.deezer.sdk:deezer:0.10.16'
 
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.1'
     testImplementation 'org.robolectric:robolectric:3.0'
@@ -87,16 +86,22 @@ project.ext.set("vasId", getVasId())
 
 android {
     namespace 'com.projectgoth'
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdk 35
+    buildToolsVersion '35.0.0'
 
     defaultConfig {
         applicationId 'com.projectgoth'
-        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        minSdk 24
+        targetSdk 35
         versionCode 65
         versionName "5.01.016"
         archivesBaseName = "migmeDroid"
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     signingConfigs {
@@ -105,10 +110,18 @@ android {
             keyAlias "androiddebugkey"
         }
         release {
-            storeFile file("appsigning/keystore_2010_android.jks")
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias "mig33_oct2010"
-            keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            def keystorePath = System.getenv("RELEASE_KEYSTORE_PATH")
+            if (keystorePath) {
+                storeFile file(keystorePath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            } else {
+                storeFile file("appsigning/keystore_2010_android.jks")
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias "mig33_oct2010"
+                keyPassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            }
         }
     }
 
@@ -135,6 +148,9 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
     }
