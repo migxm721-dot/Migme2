@@ -28,7 +28,7 @@ import com.projectgoth.ui.widget.TextViewEx;
  */
 public class TextRichContentViewAction extends ContentViewAction<TextRichContentViewHolder> implements ClickableSpanExListener {
 
-    private final String mSinglePostLinkPrefix = "http://migme.com/share/post/";
+    private final String mSinglePostLinkPrefix = "https://migxchat.net/share/post/";
     private FragmentActivity mActivity;
     private boolean mNoAction = false;
 

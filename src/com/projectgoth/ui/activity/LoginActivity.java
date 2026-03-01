@@ -82,8 +82,8 @@ import java.util.Map;
  */
 public class LoginActivity extends BaseFragmentActivity implements OnClickListener, KeyboardListener {
 
-    private final static String                                         MIG_TERMS_URL                               = "http://migme.com/terms";
-    private final static String                                         MIG_PRIVACY_URL                             = "http://migme.com/privacy";
+    private final static String                                         MIG_TERMS_URL                               = "https://migxchat.net/terms";
+    private final static String                                         MIG_PRIVACY_URL                             = "https://migxchat.net/privacy";
     private static final String                                         LOG_TAG                                     = AndroidLogger.makeLogTag(LoginActivity.class);
     private FacebookLoginController                                     mFacebookLogin;
     private Map<PreloadedFragmentKey, BaseFragment>                     mPreloadedFragments;
