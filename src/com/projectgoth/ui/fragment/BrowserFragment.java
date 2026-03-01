@@ -75,8 +75,8 @@ public class BrowserFragment extends BaseDialogFragment implements OnLoadWebList
     private static final String                LOG_TAG               = AndroidLogger.makeLogTag(BrowserFragment.class);
     public static final String                 PARAM_LAUNCH_URL      = "PARAM_LAUNCH_URL";
     public static final String                 PARAM_IS_FULL_URL     = "PARAM_IS_FULL_URL";
-    private static final String                DISCOVER_PAGE_URL     = "http://discover.migme.com";
-    private static final String                REGISTER_PAGE_URL     = "register.migme.com/register";
+    private static final String                DISCOVER_PAGE_URL     = "https://discover.migxchat.net";
+    private static final String                REGISTER_PAGE_URL     = "register.migxchat.net/register";
     private static final String                JAVASCRIPT_LOGIN      = "mig33:login()";
 
     private WebView                            mWebView               = null;

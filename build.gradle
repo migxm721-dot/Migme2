@@ -1,4 +1,6 @@
 buildscript {
+    ext.kotlin_version = '1.9.22'
+
     repositories {
         google()
         mavenCentral()
@@ -7,10 +9,16 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.0'
         classpath 'com.google.gms:google-services:4.4.0'
+copilot/setup-github-actions-ci-cd
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+main
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
 
 description = 'migme android client'
 
@@ -20,9 +28,27 @@ repositories {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.code.gson:gson:2.10.1'
+copilot/setup-github-actions-ci-cd
     implementation project(':common-lib')
     implementation project(':localization-lib')
+
+    if (file('../common-lib/build.gradle').exists()) {
+        println "use local common-lib"
+        implementation project(':common-lib')
+    } else {
+        println "use pre-build common-lib 0.0.5"
+        implementation 'com.projectgoth:common-lib:0.0.5'
+    }
+    if (file('../localization-lib/build.gradle').exists()) {
+        println "use local localization-lib"
+        implementation project(':localization-lib')
+    } else {
+        println "use pre-build localization-lib 0.0.4"
+        implementation 'com.projectgoth.localization:localization-lib:0.0.4'
+    }
+main
     //Caution: checking the project exist or not is for jenkins
     //         for development, recommend to sync the 4 dependencies below to local
     //         sync partially will have MultipleDex exception at build time
@@ -54,7 +80,10 @@ dependencies {
         println "use pre-build mig33JavaClientFramework lib 0.0.37"
         implementation 'com.projectgoth.diggle:diggle:0.0.37-SNAPSHOT'
     }
+copilot/setup-github-actions-ci-cd
     // Image loading: replaced deprecated UniversalImageLoader with Glide
+
+main
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -90,6 +119,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+copilot/setup-github-actions-ci-cd
+
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+main
     }
 
     signingConfigs {
@@ -157,6 +193,7 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
+            kotlin.srcDirs = ['src/main/kotlin']
             resources.srcDirs = ['src']
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']

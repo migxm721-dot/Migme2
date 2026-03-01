@@ -819,8 +819,8 @@ public class Tools {
     // =====================================
     // Hardcoded images endpoints, to make the images to load for the the mean
     // time
-    private static String IMAGE_ENDPOINT   = "http://migme.com/";
-    private static String STICKER_ENDPOINT = "http://migme.com/images/emoticons/stickers/";
+    private static String IMAGE_ENDPOINT   = "https://img.migxchat.net/";
+    private static String STICKER_ENDPOINT = "https://img.migxchat.net/images/emoticons/stickers/";
 
     public static String constructEmoticonUrl(EmoticonType type, String path) {
         String root = null;

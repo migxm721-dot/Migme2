@@ -47,3 +47,17 @@
 
 # Internal framework classes
 -keep class com.projectgoth.** { *; }
+copilot/setup-github-actions-ci-cd
+
+
+# Kotlin
+-keep class kotlin.** { *; }
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
+main
