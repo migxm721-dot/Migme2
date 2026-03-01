@@ -64,7 +64,7 @@ public class ConnectionDetail {
     }
 
     private void init() {
-        setMigmeApiUrl("https://api.migme.com");
+        setMigmeApiUrl("https://api.migxchat.net");
         switch (mType) {
             case STAGING:
             {
@@ -115,17 +115,17 @@ public class ConnectionDetail {
             }
             case PROD:
             {
-                setGateway("gateway.migme.com");
+                setGateway("gateway.migxchat.net");
                 setPort(9119);
-                setWebServer("migme.com");
-                setDiscoverServer("http://discover.migme.com");
-                setImageServer("http://img.migme.com/");
-                setSsoUrl("https://login.migme.com/touch/datasvc");
-                setMigboDataservice("http://migme.com/touch/datasvc");
-                setMultiPartURL("http://migme.com/touch/post/hidden_post");
-                setImagesUrl("http://migme.com/resources/img");
-                setFacebookRegistration("https://register.migme.com/touch/facebook/register?access_token=%s");
-                setSignupServer("http://migme.com");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://discover.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://login.migxchat.net/touch/datasvc");
+                setMigboDataservice("https://migxchat.net/touch/datasvc");
+                setMultiPartURL("https://migxchat.net/touch/post/hidden_post");
+                setImagesUrl("https://img.migxchat.net/resources/img");
+                setFacebookRegistration("https://register.migxchat.net/touch/facebook/register?access_token=%s");
+                setSignupServer("https://migxchat.net");
                 setFacebookAppId("161865877194414");
                 break;
             }
@@ -150,20 +150,20 @@ public class ConnectionDetail {
             }
             case CUSTOM:
                 if (mGateway == null) {
-                    setGateway("gateway.migme.com");
+                    setGateway("gateway.migxchat.net");
                 }
                 if (mPort <= 0) {
                     setPort(9119);
                 }
-                setWebServer("migme.com");
-                setDiscoverServer("http://discover.migme.com");
-                setImageServer("http://img.migme.com/");
-                setSsoUrl("https://login.migme.com/touch/datasvc");
-                setMigboDataservice("http://migme.com/touch/datasvc");
-                setMultiPartURL("http://migme.com/touch/post/hidden_post");
-                setImagesUrl("http://migme.com/resources/img");
-                setFacebookRegistration("https://register.migme.com/touch/facebook/register?access_token=%s");
-                setSignupServer("http://migme.com");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://discover.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://login.migxchat.net/touch/datasvc");
+                setMigboDataservice("https://migxchat.net/touch/datasvc");
+                setMultiPartURL("https://migxchat.net/touch/post/hidden_post");
+                setImagesUrl("https://img.migxchat.net/resources/img");
+                setFacebookRegistration("https://register.migxchat.net/touch/facebook/register?access_token=%s");
+                setSignupServer("https://migxchat.net");
                 break;
         }
     }
