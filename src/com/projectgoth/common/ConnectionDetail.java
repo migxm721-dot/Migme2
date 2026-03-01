@@ -118,14 +118,11 @@ public class ConnectionDetail {
                 setGateway("gateway.migxchat.net");
                 setPort(9119);
                 setWebServer("migxchat.net");
-                setDiscoverServer("https://discover.migxchat.net");
                 setImageServer("https://img.migxchat.net/");
-                setSsoUrl("https://login.migxchat.net/touch/datasvc");
-                setMigboDataservice("https://migxchat.net/touch/datasvc");
-                setMultiPartURL("https://migxchat.net/touch/post/hidden_post");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
                 setImagesUrl("https://img.migxchat.net/resources/img");
-                setFacebookRegistration("https://register.migxchat.net/touch/facebook/register?access_token=%s");
-                setSignupServer("https://migxchat.net");
+                setSignupServer("https://api.migxchat.net");
                 setFacebookAppId("161865877194414");
                 break;
             }
@@ -156,14 +153,11 @@ public class ConnectionDetail {
                     setPort(9119);
                 }
                 setWebServer("migxchat.net");
-                setDiscoverServer("https://discover.migxchat.net");
                 setImageServer("https://img.migxchat.net/");
-                setSsoUrl("https://login.migxchat.net/touch/datasvc");
-                setMigboDataservice("https://migxchat.net/touch/datasvc");
-                setMultiPartURL("https://migxchat.net/touch/post/hidden_post");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
                 setImagesUrl("https://img.migxchat.net/resources/img");
-                setFacebookRegistration("https://register.migxchat.net/touch/facebook/register?access_token=%s");
-                setSignupServer("https://migxchat.net");
+                setSignupServer("https://api.migxchat.net");
                 break;
         }
     }
