@@ -1,5 +1,4 @@
-copilot/migrate-fileutils-to-kotlin-again
-# Phase 3: FileUtils Migration to Kotlin
+# Phase 3: Utility Classes Migration to Kotlin
 
 ## Completed
 - ✅ `FileUtils.java` converted to `FileUtils.kt`
@@ -94,32 +93,22 @@ src/
         └── FileUtils.kt        # NEW: Kotlin conversion
 ```
 
+## NetworkUtils Migration
+
+### Completed
+- ✅ Converted to Kotlin object
+- ✅ Used `when` expression for cleaner conditional logic
+- ✅ Property access instead of getter methods
+- ✅ Safe call operator `?.` for null safety
+- ✅ Elvis operator for default values
+
+### Improvements
+- **Code reduction**: 70 → 55 lines (21% reduction)
+- **when expression**: Replaced nested if-else with cleaner when
+- **Property syntax**: `tm.simCountryIso` instead of `tm.getSimCountryIso()`
+- **Null safety**: `activeNetworkInfo?.isConnected == true`
+- **Safe call**: `requestManager?.getCountryCodeByIP(listener)`
+
 ## Next Steps
 
 See Phase 4 migration for remaining utility classes.
-=======
-# Phase 3: Utility Classes Migration to Kotlin
-
-## Completed
-- ✅ FileUtils converted to Kotlin
-- ✅ Java interop maintained with @JvmStatic
-- ✅ Code reduced by 24% (125 → 95 lines)
-- ✅ Automatic resource management with use {}
-
-## Key Improvements
-1. **Resource Management**: Automatic cleanup with `use {}`
-2. **Null Safety**: Explicit nullable return types
-3. **String Templates**: Modern string interpolation
-4. **Expression-based**: Concise try-catch expressions
-
-## Java Compatibility
-All existing Java code continues to work:
-```java
-InputStream stream = FileUtils.loadAssetFile(context, "file.txt");
-boolean exists = FileUtils.doesFileExist(context, "test.txt");
-```
-
-## Next Steps
-- NetworkUtils.java → NetworkUtils.kt
-- AndroidUtils.java → AndroidUtils.kt
-main
