@@ -1,6 +1,26 @@
 include ':'
 
 include ':facebookSDK'
+copilot/setup-github-actions-ci-cd
+
+include ':mig33JavaClientFramework'
+project(':mig33JavaClientFramework').projectDir = new File('../mig33JavaClientFramework/')
+
+include ':mig33FusionClientService'
+project(':mig33FusionClientService').projectDir = new File('../mig33FusionClientService/')
+
+include ':client-miniblog'
+project(':client-miniblog').projectDir = new File('../client-miniblog/')
+
+include ':mig33ClientNetworkService'
+project(':mig33ClientNetworkService').projectDir = new File('../mig33ClientNetworkService/')
+
+include ':common-lib'
+project(':common-lib').projectDir = new File('../common-lib/')
+
+include ':localization-lib'
+project(':localization-lib').projectDir = new File('../localization-lib/')
+=======
 
 // Only include local library projects if they exist on disk
 if (new File(rootDir, '../mig33JavaClientFramework/build.gradle').exists()) {
@@ -32,3 +52,4 @@ if (new File(rootDir, '../localization-lib/build.gradle').exists()) {
     include ':localization-lib'
     project(':localization-lib').projectDir = new File(rootDir, '../localization-lib/')
 }
+main

@@ -32,13 +32,24 @@ target/
 # Crashlytics
 crashlytics.properties
 
+copilot/setup-github-actions-ci-cd
+# Gradle
+=======
 #Gradle
+main
 .gradle
 
 # Android build outputs
 *.apk
 *.aab
 *.dex
+
+copilot/setup-github-actions-ci-cd
+# Signing keys
+*.jks
+*.keystore
+
+# Firebase config (add via CI secrets or local setup, do not commit)
 
 # Android signing secrets
 appsigning/keystore_2010_android.jks
@@ -48,4 +59,5 @@ appsigning/May2009_cert
 fabric.properties
 
 # google-services.json (add your own for Firebase)
+main
 google-services.json

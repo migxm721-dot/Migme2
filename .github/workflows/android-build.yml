@@ -35,48 +35,66 @@ jobs:
         with:
           repository: migxm721-dot/mig33JavaClientFramework
           path: mig33JavaClientFramework
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       - name: Checkout mig33FusionClientService
         uses: actions/checkout@v4
         with:
           repository: migxm721-dot/mig33FusionClientService
           path: mig33FusionClientService
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       - name: Checkout client-miniblog
         uses: actions/checkout@v4
         with:
           repository: migxm721-dot/client-miniblog
           path: client-miniblog
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       - name: Checkout mig33ClientNetworkService
         uses: actions/checkout@v4
         with:
           repository: migxm721-dot/mig33ClientNetworkService
           path: mig33ClientNetworkService
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       - name: Checkout common-lib
         uses: actions/checkout@v4
         with:
           repository: migxm721-dot/common-lib
           path: common-lib
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       - name: Checkout localization-lib
         uses: actions/checkout@v4
         with:
           repository: migxm721-dot/localization-lib
           path: localization-lib
+copilot/setup-github-actions-ci-cd
+
           token: ${{ secrets.REPO_ACCESS_TOKEN || github.token }}
         continue-on-error: true
+main
 
       # ── Environment setup ────────────────────────────────────────────────────
       - name: Set up JDK 17
@@ -155,10 +173,13 @@ jobs:
           if-no-files-found: warn
 
       # ── Unit tests ───────────────────────────────────────────────────────────
+copilot/setup-github-actions-ci-cd
+
       - name: Clean up keystore
         if: always()
         run: rm -f "${{ github.workspace }}/release-keystore.jks"
 
+main
       - name: Run unit tests
         continue-on-error: true
         run: cd Migme2 && ./gradlew test --stacktrace
