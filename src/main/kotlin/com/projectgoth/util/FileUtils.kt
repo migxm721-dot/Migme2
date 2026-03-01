@@ -12,9 +12,21 @@ import com.projectgoth.common.Logger
 import java.io.FileNotFoundException
 import java.io.InputStream
 
+copilot/migrate-fileutils-to-kotlin-again
+/**
+ * @author warrenbalcos
+ *
+ * Converted to Kotlin - Phase 3 Migration
+ */
+object FileUtils {
+
+    const val TAG = "FileUtils"
+
+
 object FileUtils {
 
     private const val TAG = "FileUtils"
+main
     const val DEFAULT_FILE_BUFFER = 1024
 
     @JvmStatic
@@ -26,6 +38,12 @@ object FileUtils {
         }
     }
 
+ copilot/migrate-fileutils-to-kotlin-again
+    /**
+     * Loads specific asset file data
+     */
+
+main
     @JvmStatic
     fun loadAssetFile(context: Context, filename: String): InputStream? {
         return try {
@@ -46,15 +64,33 @@ object FileUtils {
         }
     }
 
+copilot/migrate-fileutils-to-kotlin-again
+    /**
+     * Copy source file to destination
+     *
+     * @param context The application context
+     * @param src The source InputStream to copy from
+     * @param dst The destination filename to write to
+     * @return true if the file was saved successfully, false otherwise
+     */
+
+main
     @JvmStatic
     fun saveToFile(context: Context, src: InputStream, dst: String): Boolean {
         return try {
             context.openFileOutput(dst, Context.MODE_PRIVATE).use { fos ->
                 src.use { input ->
+copilot/migrate-fileutils-to-kotlin-again
+                    val bytes = ByteArray(DEFAULT_FILE_BUFFER)
+                    var read: Int
+                    while (input.read(bytes).also { read = it } != -1) {
+                        fos.write(bytes, 0, read)
+
                     val buffer = ByteArray(DEFAULT_FILE_BUFFER)
                     var read: Int
                     while (input.read(buffer).also { read = it } != -1) {
                         fos.write(buffer, 0, read)
+main
                     }
                 }
             }
