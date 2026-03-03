@@ -64,53 +64,52 @@ public class ConnectionDetail {
     }
 
     private void init() {
+        // Default base API URL for all environments. Override individual fields below,
+        // or use CUSTOM type with gateway/port set via Settings to point to a different deployment.
         setMigmeApiUrl("https://api.migxchat.net");
         switch (mType) {
             case STAGING:
             {
-                setGateway("74.217.68.51");
+                setGateway("gateway.migxchat.net");
                 setPort(9119);
-                setWebServer("migme.stg.projectgoth.com");
-                setDiscoverServer("http://discover.migme.stg.projectgoth.com");
-                setImageServer("http://img.migme.stg.projectgoth.com/");
-                setSsoUrl("https://login.migme.stg.projectgoth.com/touch/datasvc");
-                setMigboDataservice("http://migme.stg.projectgoth.com/touch/datasvc");
-                setMultiPartURL("http://migme.stg.projectgoth.com/touch/post/hidden_post");
-                setImagesUrl("http://migme.stg.projectgoth.com/b/resources/img");
-                setFacebookRegistration("https://register.migme.stg.projectgoth.com/touch/facebook/register?access_token=%s");
-                setSignupServer("http://migme.stg.projectgoth.com");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://api.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
+                setImagesUrl("https://img.migxchat.net/resources/img");
+                setSignupServer("https://api.migxchat.net");
                 setFacebookAppId("147422338729791");
                 break;
             }
             case QALAB:
             {
-                setGateway("gway.qalab.projectgoth.com");
+                setGateway("gateway.migxchat.net");
                 setPort(9119);
-                setWebServer("qalab.projectgoth.com");
-                setDiscoverServer("http://discover.qalab.projectgoth.com");
-                setImageServer("http://img.qalab.projectgoth.com/");
-                setSsoUrl("https://login.qalab.projectgoth.com/touch/datasvc");
-                setMigboDataservice("http://qalab.projectgoth.com/touch/datasvc");
-                setMultiPartURL("http://qalab.projectgoth.com/touch/post/hidden_post");
-                setImagesUrl("http://qalab.projectgoth.com/b/resources/img");
-                setFacebookRegistration("https://register.qalab.projectgoth.com/touch/facebook/register?access_token=%s");
-                setSignupServer("http://qalab.projectgoth.com");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://api.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
+                setImagesUrl("https://img.migxchat.net/resources/img");
+                setSignupServer("https://api.migxchat.net");
                 setFacebookAppId("201383533238944");
                 break;
             }
             case LCQALAB:
             {
-                setGateway("gway.qalab.projectgoth.com");
+                setGateway("gateway.migxchat.net");
                 setPort(9119);
-                setWebServer("lc.qalab.projectgoth.com");
-                setDiscoverServer("http://discover.lc.qalab.projectgoth.com");
-                setImageServer("http://lc.qalab.projectgoth.com/");
-                setSsoUrl("https://login.lc.qalab.projectgoth.com/touch/datasvc");
-                setMigboDataservice("http://lc.qalab.projectgoth.com/touch/datasvc");
-                setMultiPartURL("http://lc.qalab.projectgoth.com/touch/post/hidden_post");
-                setImagesUrl("http://lc.qalab.projectgoth.com/b/resources/img");
-                setFacebookRegistration("https://register.lc.qalab.projectgoth.com/touch/facebook/register?access_token=%s");
-                setSignupServer("http://lc.qalab.projectgoth.com");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://api.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
+                setImagesUrl("https://img.migxchat.net/resources/img");
+                setSignupServer("https://api.migxchat.net");
                 break;
             }
             case PROD:
@@ -121,6 +120,7 @@ public class ConnectionDetail {
                 setImageServer("https://img.migxchat.net/");
                 setSsoUrl("https://api.migxchat.net/auth/validate");
                 setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
                 setImagesUrl("https://img.migxchat.net/resources/img");
                 setSignupServer("https://api.migxchat.net");
                 setFacebookAppId("161865877194414");
@@ -131,18 +131,17 @@ public class ConnectionDetail {
                 String ip = "192.168.2.42";             // <== Set your MIAB's public IP
                 setGateway(ip);
                 setPort(9119);
-                setWebServer("localhost.projectgoth.com");
-                setDiscoverServer("http://discover.localhost.projectgoth.com");
-                setImageServer("http://img.localhost.projectgoth.com/");
-                setSsoUrl("https://login.localhost.projectgoth.com/touch/datasvc");
-                setMigboDataservice("http://localhost.projectgoth.com/touch/datasvc");
-                setMultiPartURL("http://localhost.projectgoth.com/touch/post/hidden_post");
-                setImagesUrl("http://localhost.projectgoth.com/resources/img");
-                setFacebookRegistration("https://register.localhost.projectgoth.com/touch/facebook/register?access_token=%s");
+                setWebServer("migxchat.net");
+                setDiscoverServer("https://api.migxchat.net");
+                setImageServer("https://img.migxchat.net/");
+                setSsoUrl("https://api.migxchat.net/auth/validate");
+                setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
+                setImagesUrl("https://img.migxchat.net/resources/img");
                 setUseProxy(true);
                 setProxyHost(ip);
                 setProxyPort(10080);
-                setSignupServer("http://localhost.projectgoth.com");
+                setSignupServer("https://api.migxchat.net");
                 break;
             }
             case CUSTOM:
@@ -156,6 +155,7 @@ public class ConnectionDetail {
                 setImageServer("https://img.migxchat.net/");
                 setSsoUrl("https://api.migxchat.net/auth/validate");
                 setMigboDataservice("https://api.migxchat.net/api");
+                setMultiPartURL("https://api.migxchat.net/api/upload");
                 setImagesUrl("https://img.migxchat.net/resources/img");
                 setSignupServer("https://api.migxchat.net");
                 break;
