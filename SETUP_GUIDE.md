@@ -123,8 +123,4 @@ See [README.md – Signing](README.md#signing) for full instructions on:
 | `KEYSTORE_PASSWORD` | Keystore password |
 | `KEY_ALIAS` | Key alias |
 | `KEY_PASSWORD` | Key password |
-copilot/setup-github-actions-ci-cd
-| `GOOGLE_SERVICES_JSON` | *(Optional)* Contents of `google-services.json` for Firebase |
-
-| `GOOGLE_SERVICES_JSON` | Contents of `google-services.json` for Firebase (required for build) | 
-main
+| `GOOGLE_SERVICES_JSON` | Contents of `google-services.json` for Firebase (required for build) |
